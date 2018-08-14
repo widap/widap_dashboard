@@ -64,7 +64,7 @@ def readDataSmaller(plantName, unitName):
     data['CO2I_ht'].replace('', 0, inplace=True)
 
 
-    print("data successfully extracted")
+    print("Data successfully extracted.")
 
     return data
 
@@ -104,7 +104,7 @@ def readDataAWS(plantName, unitName):
     data.sort_values(by=['DATETIME'],inplace=True)      # Necessary for time series
 
     # Return correctly formated data
-    print("data successfully extracted")  
+    print("Data successfully extracted.")  
     return data
 
 def formatData(data):
@@ -384,15 +384,15 @@ def runDashboard(ev):
     Code executed when the run dashboard button is clicked
     """
 
-    print("Dashboard Starting for "+ plantWid.value+ ".")
+    print("Dashboard starting for "+ plantWid.value+ ".")
     # Parse plant and unit name
     plantName=plantWid.value.split(":")[1]
     unitName=plantWid.value.split(":")[2].split(" ")[2]
     # Import Data
-    print("Importing Data. \nThis usually takes 10-20 seconds.")
+    print("Importing data--this can take more than 10 seconds.")
     t_start=time.time()
     data=readDataAWS(plantName, unitName)
-    print("Dashboard ready. Time ellapsed: " + str(int(time.time()-t_start))+" seconds.")
+    print("Dashboard ready. Time elapsed: " + str(int(time.time()-t_start))+" seconds.")
     # Change data indexing
     data.index=data.DATETIME
     data['Year_Month']=data['OP_DATE'].astype(str).str[:4]+data['OP_DATE'].astype(str).str[5:7]
@@ -405,13 +405,13 @@ def runDashboardLocal(ev):
     Not currently implemented (mostly obsolete)
     """
     
-    print("Dashboard Starting for "+ plantWid.value)
+    print("Dashboard starting for "+ plantWid.value)
     plantName=plantWid.value.split(":")[1]
     unitName=plantWid.value.split(":")[2].split(" ")[2]
-    print("Importing Data, this could take a while")
+    print("Importing data--this can take more than 10 seconds")
     t_start=time.time()
     data=readDataSmaller(plantName,unitName)
-    print("Time ellapsed: " + str(np.floor(time.time()-t_start)))
+    print("Time elapsed: " + str(np.floor(time.time()-t_start)))
     formatData(data)
     interactive_plots(data,plantName,unitName)
 
