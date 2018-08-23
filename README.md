@@ -1,31 +1,20 @@
-# widap_dashboard
+# West Interconnection Data Analysis Program (WIDAP) Dashboard
 
-1. Ensure that the 'dashboard_init_v4_4.py' file is in the same folder 
-2. Launch Jupyter notebook: 'dashboard_MVP_onecell.ipynb'
-3. Run the first cell
-4. Select Plant and Unit
+## AWS Deploy Instructions.
+1. Start bash run.sh in a separate screen.
+2. This assumes you have valid credentials to start the app.
+3. Login to the notebook at http://ec2-34-214-155-193.us-west-2.compute.amazonaws.com:8000/
+4. Set the Google OAuth credentials and callback URL at the Google Credentials Management screen
 
-Use widgets for functionality to select time frame and emissions.
-
-
-For questions, please email bclimate@stanford.edu
-
-
-Ensure that the following packages are installed:
-from __future__ import print_function
-import matplotlib.pyplot as plt
-import pandas as pd
-import numpy as np
-import calendar
-import seaborn as sns
-import sqlite3 as sq3
-import time
-import datetime
-import scipy as sc
-import os
-import mysql.connector
-import ipywidgets as widgets
-from ipywidgets import interact, interactive, fixed, interact_manual
-from IPython.display import Javascript, display, Markdown
-import ipywidgets as widgets
-import warnings
+## Development Instructions
+1. All packages are listed in package_list.txt to use with anaconda
+2. Alternatively you can use pip to bring in all the dependencies. You can do a pip install -r requirements.txt
+3. Set the following env variables:
+	i.   OAUTH_CALLBACK_URL
+	ii.  OAUTH_CLIENT_SECRET
+	iii. OAUTH_CLIENT_ID
+4. Ensure you can build the docker spawner image:
+	i.  docker build -t am2434/widap:latest .
+	ii. export DOCKER_NOTEBOOK_IMAGE="am2434/widap:latest"
+5. Run jupyterhub -f jupyter_config.py --log-level=DEBUG
+For questions, please email bclimate@stanford.edu and am2434@cornell.edu

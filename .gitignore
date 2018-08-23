@@ -15,3 +15,4 @@ jupyterhub-proxy.pid
 .clientSecret
 .clientID
 .callbackURL
+.adminPass
