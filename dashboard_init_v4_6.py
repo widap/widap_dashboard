@@ -353,7 +353,7 @@ def interactive_plots(data,plantName,unitName):
     NOX_select2=widgets.Checkbox(value=False,description='NOX',disabled=False)                                      # NOX toggle for fig 4
     eff_select=widgets.Checkbox(value=True,description='Efficiency',disabled=False)                                 # Efficiency toggle for fig 4
     CapFac_select=widgets.Checkbox(value=True,description='Capacity Factor',disabled=False)                         # Capacity Factor toggle for fig 4
-    Nplot_select=widgets.IntSlider(value=2,min=2,max=8,step=1,description='Number of years:')                                # Number of years to plot for fig 3
+    Nplot_select=widgets.IntSlider(value=2,min=2,max=8,step=1,description='Num. years:')                                # Number of years to plot for fig 3
     CO2scale_select=widgets.FloatSlider(value=2.0,min=1.0, max=10.0, step=0.5, description='C02 scaling:')          # y axis control for fig 3
     SO2scale_select=widgets.FloatSlider(value=2.0,min=1.0, max=10.0, step=0.5, description='S02 scaling:')          # y axis control for fig 3
 
