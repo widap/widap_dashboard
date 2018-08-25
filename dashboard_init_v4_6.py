@@ -353,30 +353,30 @@ def interactive_plots(data,plantName,unitName):
     NOX_select2=widgets.Checkbox(value=False,description='NOX',disabled=False)                                      # NOX toggle for fig 4
     eff_select=widgets.Checkbox(value=True,description='Efficiency',disabled=False)                                 # Efficiency toggle for fig 4
     CapFac_select=widgets.Checkbox(value=True,description='Capacity Factor',disabled=False)                         # Capacity Factor toggle for fig 4
-    Nplot_select=widgets.IntSlider(value=2,min=2,max=8,step=1,description='#years:')                                # Number of years to plot for fig 3
+    Nplot_select=widgets.IntSlider(value=2,min=2,max=8,step=1,description='Number of years:')                                # Number of years to plot for fig 3
     CO2scale_select=widgets.FloatSlider(value=2.0,min=1.0, max=10.0, step=0.5, description='C02 scaling:')          # y axis control for fig 3
     SO2scale_select=widgets.FloatSlider(value=2.0,min=1.0, max=10.0, step=0.5, description='S02 scaling:')          # y axis control for fig 3
 
     # Run each plot function using the interact function (and generate text explanations)
     # plot 1
-    printmd('## Visualization 1: Generation Boxplots')
-    printmd('This plot displays the boxplot of gross generation for each month of the year. It can provide insight regarding the usage of the plant (through the value of the mean) as well as how regular or irregular it is (through the span of the whiskers).')
-    printmd('You may choose below the time range to display.')
+    printmd('## Visualization 1: Monthly Generation Boxplots')
+    printmd('The first visualization displays boxplots of generation for each month of the year. We feel that this plot can provide insight regarding the typical output of the plant (through the value of the median) as well as how regular or irregular the output is (through the span of the whiskers). Baseload patterns would tend to have a high median value and a narrow interquartile range. More variable or seasonal generation can be seen with fluctuating medians and large interquartile ranges.')
+    printmd('Use the sliders below to change the zoom in on smaller windows of time.')
     interact(CF_boxplot,plantName=fixed(plantName),unitName=fixed(unitName),data=fixed(data),yearRange=year_select)
     # plot 2
-    printmd('## Visualization 2: Emissions Time Series')
-    printmd('This plot displays a time series of CO2, SO2, and NOx emissions. It tells a story of how the emissions of a unit changes over time. This can provide insights about upgrades, maintenance, extreme events, etc. The values in this plot are normalized by the average for hourly emissions of each gas.')
-    printmd('Below, you may choose the time range to display as well as how much smoothing to apply (this performs an average over the number of days chosen). You may also choose which emissions to display. ')
+    printmd('## Visualization 2: Normalized Emissions Time Series')
+    printmd('This second plot displays a rolling average of CO2, SO2, and NOx emissions. It can be used to view how the emissions of a unit changes over time. This can provide insights about upgrades, maintenance, extreme events, etc based on when the values spike or go to zero. The values in this plot are normalized by the average for hourly emissions of each gas, thus they are unitless and are centered on 1.0.')
+    printmd('Use the sliders below to change the zoom in on smaller windows of time.  Change the smoothing value to make window for the rolling average bigger or smaller (a large value can help with readability, but affect detail). You may also choose to show or hide the different gases.')
     interact(Norm_Em,plantName=fixed(plantName),unitName=fixed(unitName), data=fixed(data), yearRange=year_select, RM_window=RM_select,CO2_on=CO2_select,SO2_on=SO2_select,NOX_on=NOX_select)
     # plot 3
-    printmd('## Visualization 3: Emissions vs Operations')
-    printmd('This plot displays emissions intensity versus capacity factor. This shows how emissions change with utilization rates. We expect carbon intensity to be worse at lower capacity factors, but it is interesting to look and see if that is not the case and think about why.')
-    printmd('You may choose below the time range to display as well as the number of years. Additionally, you may widen the display window if needed. The scaling value will increase the viewing range on the Y-Axis.')
+    printmd('## Visualization 3: Hourly Emissions Intensity vs Capacity Factor')
+    printmd('The third section displays hourly emissions intensity of CO2 and SO2 versus capacity factor. This shows how emissions intensity change with utilization rates. It is expected for emissions intensity to be worse at lower capacity factors. These plots can help check if and when this is true and if there are clusters of points.')
+    printmd('You may choose below the time range to display as well as the number of years. Change the number of years displayed to show more years on the plot. Use the scaling value to increase the viewing range on the Y-Axis (this is a multiplier for the average emission intensity).')
     interact(EmvCF,plantName=fixed(plantName),unitName=fixed(unitName), data=fixed(data), yearRange=year_select, Nplots=Nplot_select,CO2scale=CO2scale_select,SO2scale=SO2scale_select)
     # plot 4
     printmd('## Visualization 4: Histograms')
-    printmd('This section displays a series of histograms of various plant metrics. They show the distribution of time a unit spends operating at various values of these metrics.')
-    printmd('You may choose below which histogram to display.')
+    printmd('The fourth section displays a series of histograms of various plant metrics. They show the distribution of time a unit spends operating at various values of these metrics. Efficiency is calculated as generation divided by heat input, where both values were converted to the same units, so that the output is unitless. The other plots are calculated with both heat input and generation data. It is worth noting when these are similar or different. The corresponding efficiency plot may help to explain discrepancies.')
+    printmd('Use the sliders below to change the zoom in on smaller windows of time, and check the various boxes to show or hide plots.')
     interact(emissionHistograms,plantName=fixed(plantName),unitName=fixed(unitName),data=fixed(data),yearRange=year_select,eff_on=eff_select,CapFac_on=CapFac_select,CO2e_on=CO2e_select,CO2_on=CO2_select2,SO2_on=SO2_select2,NOX_on=NOX_select2)
 
 def runDashboard(ev):
